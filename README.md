@@ -27,10 +27,10 @@ YouTube (and other web videos provider) split audio and video, then we have to d
 
 ## Output of GUI be like:
 ![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/1.png)
-![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/1.png/2.png)
-![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/1.png/3.png)
-![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/1.png/4.png)
-![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/1.png/5.png)
+![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/2.png)
+![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/3.png)
+![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/4.png)
+![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/5.png)
 
 ## TODO & Problems
 
