@@ -2,7 +2,7 @@
 Unlike the others YouTube downloader, pytDownloader allows you to download a video with higher resolutions (like 1080p or 4k)
 
 ## Usage:
-YouTube (and other web videos provider) split audio and video, then we have to download video and audio in a separate way, next we can merge these two temp files (video.mp4,audio.mp4) in a single one.
+YouTube (and other web videos provider) split audio and video, then we have to download video and audio in a separate way, next we can merge these two temp files (video.mp4,audio.mp4) into a single one.
 
 `$ python3 gui_pytdwn.py`
 
