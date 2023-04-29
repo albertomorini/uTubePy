@@ -38,3 +38,8 @@ YouTube (and other web videos provider) split audio and video, then we have to d
 
 	A solution is provided by @ifahadone, you need to replace a function into "/Users/alby/Library/Python/3.8/lib/python/site-packages/pytube/cipher.py" file.
 	Here link: https://github.com/pytube/pytube/issues/1243#issuecomment-1032242549
+
+
+* PyTube streamdata (happened after update python to 3.11)
+
+	solved via:  https://github.com/pytube/pytube/issues/743#issuecomment-1528453973
