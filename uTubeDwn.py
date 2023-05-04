@@ -7,7 +7,7 @@ import re
 #YouTube interface
 
 def getTitle(url):
-	tmp = YouTube(url).title
+	tmp = YouTube(url, use_oauth=True, allow_oauth_cache=True).title
 	#remove character not allowed on file system
 	tmp = re.sub(r'\w[.)]\s*', '', tmp)
 	return tmp
@@ -15,7 +15,7 @@ def getTitle(url):
 def downloadVideo(url,resParam,folderDestination="./tmp/", nameOfFile="video"):
 	print("Downloading the video")
 	try:
-		YouTube(url).streams.filter(res=str(resParam)+"p").first().download(output_path=folderDestination,filename=nameOfFile+'.mp4')
+		YouTube(url, use_oauth=True, allow_oauth_cache=True).streams.filter(res=str(resParam)+"p").first().download(output_path=folderDestination,filename=nameOfFile+'.mp4')
 	except Exception as e:
 		print("video or resolution aren't correct")
 	print("done!")
@@ -23,7 +23,7 @@ def downloadVideo(url,resParam,folderDestination="./tmp/", nameOfFile="video"):
 def downloadAudio(url, folderDestination="./tmp/", nameOfFile="audio"):
 	print("Downloading the audio")
 	try:
-		YouTube(url).streams.filter(only_audio=True).first().download(output_path=folderDestination,filename=nameOfFile+".mp4")
+		YouTube(url, use_oauth=True, allow_oauth_cache=True).streams.filter(only_audio=True).first().download(output_path=folderDestination,filename=nameOfFile+".mp4")
 	except Exception as e:
 		print("url doesn't exists or there isn't audio in the video/video quality")
 	print("done!")
@@ -31,7 +31,7 @@ def downloadAudio(url, folderDestination="./tmp/", nameOfFile="audio"):
 def getResolutions(url):
 	availableRes= set()
 	#remove the duplicated
-	for i in YouTube(url).streams.all():
+	for i in YouTube(url, use_oauth=True, allow_oauth_cache=True).streams.all():
 		if(i.resolution!=None):
 			availableRes.add(int(i.resolution.split("p")[0]))
 	return sorted(availableRes)

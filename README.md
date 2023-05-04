@@ -42,4 +42,5 @@ YouTube (and other web videos provider) split audio and video, then we have to d
 
 * PyTube streamdata (happened after update python to 3.11)
 
-	solved via:  https://github.com/pytube/pytube/issues/743#issuecomment-1528453973
+	> solved via:  https://github.com/pytube/pytube/issues/1586
+	a problem mainly of youtube, I had to authenitcate my terminal with my google account
