@@ -1,12 +1,22 @@
-# pyTubeDownloader, a YouTube downloader.
-Unlike the others YouTube downloader, pytDownloader allows you to download a video with higher resolutions (like 1080p or 4k)
+# uTubePy, a YouTube downloader.
+Unlike the others YouTube downloaders, uTubePy allows you to download a video with higher resolutions (like 1080p or 4k)
+
+![4kproof](./img/4kproof.png)
 
 ## Usage:
 YouTube (and other web videos provider) split audio and video, then we have to download video and audio in a separate way, next we can merge these two temp files (video.mp4,audio.mp4) into a single one.
 
+**Install the dependencies with pip3**
+
+## GUI version
+
 `$ python3 gui_pytdwn.py`
 
----
+### Output be like:
+![Output example](./img/1.png)
+![Output example](./img/3.png)
+
+
 
 ## CLI version
 `$ python3 pyt_dwn.py`
@@ -14,25 +24,12 @@ YouTube (and other web videos provider) split audio and video, then we have to d
 2) choose if add another video or start download
 3) enjoy ;)
 
-## Dependencies:
-- os
-- moviepy.editor
-- pytube
-- PySimpleGUI as sg
-- platform
-- darkdetect
-- sys
-
-> installable with pip3
-
-## Output of GUI be like:
-![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/1.png)
-![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/2.png)
-![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/3.png)
-![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/4.png)
-![Output example](https://github.com/albertomorini/uTubePy/blob/main/img/5.png)
 
 ## TODO & Problems
+
+### PYTUBE
+
+Using pytube, we earn all the library problems... like
 
 * PyTube has a common issue ('NoneType' object has no attribute 'span') you can see it on their github page (https://github.com/pytube/pytube/issues).
 
@@ -44,3 +41,6 @@ YouTube (and other web videos provider) split audio and video, then we have to d
 
 	> solved via:  https://github.com/pytube/pytube/issues/1586
 	a problem mainly of youtube, I had to authenitcate my terminal with my google account
+
+* Another one:
+	https://github.com/pytube/pytube/issues/1707

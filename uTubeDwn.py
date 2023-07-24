@@ -6,12 +6,17 @@ import re
 ########################################
 #YouTube interface
 
+# returns the title of the video w/out illegal char for OS
+# @url -> the youtube video url
 def getTitle(url):
 	tmp = YouTube(url, use_oauth=True, allow_oauth_cache=True).title
 	#remove character not allowed on file system
 	tmp = re.sub(r'\w[.)]\s*', '', tmp)
 	return tmp
 
+# download only the video
+# @resParam => the resolution wanted
+# @nameOfFile => name to assign only to the video (tmp if both = video + audio)
 def downloadVideo(url,resParam,folderDestination="./tmp/", nameOfFile="video"):
 	print("Downloading the video")
 	try:
@@ -20,6 +25,7 @@ def downloadVideo(url,resParam,folderDestination="./tmp/", nameOfFile="video"):
 		print("video or resolution aren't correct")
 	print("done!")
 
+# download only the audio
 def downloadAudio(url, folderDestination="./tmp/", nameOfFile="audio"):
 	print("Downloading the audio")
 	try:
@@ -28,9 +34,9 @@ def downloadAudio(url, folderDestination="./tmp/", nameOfFile="audio"):
 		print("url doesn't exists or there isn't audio in the video/video quality")
 	print("done!")
 
+# reutrns a list of resolutions available of the video
 def getResolutions(url):
-	availableRes= set()
-	#remove the duplicated
+	availableRes= set()#remove the duplicated
 	for i in YouTube(url, use_oauth=True, allow_oauth_cache=True).streams.all():
 		if(i.resolution!=None):
 			availableRes.add(int(i.resolution.split("p")[0]))
@@ -39,6 +45,7 @@ def getResolutions(url):
 ##################################################
 #file handling
 
+# merge video and audio downloaded
 def mergeVideoAudio(url):
 	print("Merging video and audio")
 	audio = mp.AudioFileClip("./tmp/audio.mp4")
@@ -53,7 +60,7 @@ def flushTmp():
 
 def addVideoToQueue(queueVideo):
 	url = input("\nInsert the video's url: ")
-	print("pick a resolution:" + str(getResolutions(url)))
+	print("pick a resolution of" + str(getResolutions(url)))
 	resolution = input("Insert the resolution as a number (720/1080): ")
 	mode = input("\n-----------\n\tA for only audio\n\tV for only video\n\tB for both\n->")
 
