@@ -2,6 +2,11 @@ from pytube import YouTube
 import moviepy.editor as mp
 import os
 import re
+from pytube.innertube import _default_clients
+
+import ssl
+ssl._create_default_https_context = ssl._create_stdlib_context
+
 
 ########################################
 #YouTube interface
