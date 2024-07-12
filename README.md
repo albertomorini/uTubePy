@@ -50,3 +50,6 @@ Using pytube, we earn all the library problems... like
 - **Error 400 on the request, seems to be dued to age restriction**
   * Solved via: https://github.com/pytube/pytube/issues/1894
   * Error w/ Certificate solved via: https://github.com/pytube/pytube/issues/1431
+
+- **Getting throttling function problem**
+  - Solved via: https://github.com/pytube/pytube/issues/1954#issuecomment-2218287594
