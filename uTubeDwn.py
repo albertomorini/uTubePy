@@ -1,4 +1,4 @@
-from pytube import YouTube
+from pytubefix import YouTube
 import moviepy.editor as mp
 import os
 import re
