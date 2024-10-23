@@ -16,7 +16,7 @@ ssl._create_default_https_context = ssl._create_stdlib_context
 def getTitle(url):
 	tmp = YouTube(url, use_oauth=True, allow_oauth_cache=True).title
 	#remove character not allowed on file system
-	tmp = re.sub(r'\w[.)]\s*', '', tmp)
+	tmp = re.sub(r'[^\w\s]', '', tmp)
 	return tmp
 
 # download only the video
@@ -56,6 +56,11 @@ def mergeVideoAudio(url):
 	audio = mp.AudioFileClip("./tmp/audio.mp4")
 	video1 = mp.VideoFileClip("./tmp/video.mp4")
 	final = video1.set_audio(audio)
+    
+    # Create output directory if it doesn't exist
+    if not os.path.exists("output"):
+        os.makedirs("output")  # Correct indentation (same as the if statement)
+        
 	final.write_videofile("output/"+getTitle(url)+".mp4",codec='libx264' ,audio_codec='libvorbis')
 
 def flushTmp():
