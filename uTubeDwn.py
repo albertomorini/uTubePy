@@ -58,8 +58,8 @@ def mergeVideoAudio(url):
 	final = video1.set_audio(audio)
     
     # Create output directory if it doesn't exist
-    if not os.path.exists("output"):
-        os.makedirs("output")  # Correct indentation (same as the if statement)
+	if not os.path.exists("output"):
+		os.makedirs("output")  # Correct indentation (same as the if statement)
         
 	final.write_videofile("output/"+getTitle(url)+".mp4",codec='libx264' ,audio_codec='libvorbis')
 
