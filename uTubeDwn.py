@@ -1,7 +1,20 @@
-from pytube import YouTube
-import moviepy.editor as mp
+# from pytubefix import YouTube
+# pip install yt-dlp
+import moviepy as mp
 import os
 import re
+
+import ssl
+ssl._create_default_https_context = ssl._create_stdlib_context
+
+from pytubefix import YouTube
+from pytubefix import request
+from pytubefix import extract
+from pytubefix.innertube import _default_clients
+from pytubefix.exceptions import RegexMatchError
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
 
 ########################################
 #YouTube interface
@@ -11,7 +24,7 @@ import re
 def getTitle(url):
 	tmp = YouTube(url, use_oauth=True, allow_oauth_cache=True).title
 	#remove character not allowed on file system
-	tmp = re.sub(r'\w[.)]\s*', '', tmp)
+	tmp = re.sub(r'[^\w\s]', '', tmp)
 	return tmp
 
 # download only the video
@@ -51,6 +64,11 @@ def mergeVideoAudio(url):
 	audio = mp.AudioFileClip("./tmp/audio.mp4")
 	video1 = mp.VideoFileClip("./tmp/video.mp4")
 	final = video1.set_audio(audio)
+    
+    # Create output directory if it doesn't exist
+	if not os.path.exists("output"):
+		os.makedirs("output")  # Correct indentation (same as the if statement)
+        
 	final.write_videofile("output/"+getTitle(url)+".mp4",codec='libx264' ,audio_codec='libvorbis')
 
 def flushTmp():
