@@ -63,7 +63,7 @@ def mergeVideoAudio(url):
 	print("Merging video and audio")
 	audio = mp.AudioFileClip("./tmp/audio.mp4")
 	video1 = mp.VideoFileClip("./tmp/video.mp4")
-	final = video1.set_audio(audio)
+	final = video1.with_audio(audio)
     
     # Create output directory if it doesn't exist
 	if not os.path.exists("output"):
