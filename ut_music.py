@@ -63,7 +63,7 @@ def mergeVideoAudio(url):
 	print("Merging video and audio")
 	audio = mp.AudioFileClip("./tmp/audio.mp4")
 	video1 = mp.VideoFileClip("./tmp/video.mp4")
-	final = video1.with_audio(audio)
+	final = video1.set_audio(audio)
     
     # Create output directory if it doesn't exist
 	if not os.path.exists("output"):
@@ -78,9 +78,9 @@ def flushTmp():
 
 def addVideoToQueue(queueVideo):
 	url = input("\nInsert the video's url: ")
-	print("pick a resolution of" + str(getResolutions(url)))
-	resolution = input("Insert the resolution as a number (720/1080): ")
-	mode = input("\n-----------\n\tA for only audio\n\tV for only video\n\tB for both\n->")
+	#print("pick a resolution of" + str(getResolutions(url)))
+	resolution = 1080 #input("Insert the resolution as a number (720/1080): ")
+	mode = "A" #input("\n-----------\n\tA for only audio\n\tV for only video\n\tB for both\n->")
 
 	queueVideo[url]={
 		"res": resolution,
