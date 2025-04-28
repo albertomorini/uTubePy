@@ -1,5 +1,7 @@
+#!/bin/bash
 
-source ~/Documents/shell/shellConfig;
+source ~/.bashrc
+shopt -s expand_aliases
 
 for i in ./output/*;
 do

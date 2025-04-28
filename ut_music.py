@@ -1,6 +1,5 @@
 # from pytubefix import YouTube
 # pip install yt-dlp
-import moviepy as mp
 import os
 import re
 
@@ -27,17 +26,6 @@ def getTitle(url):
 	tmp = re.sub(r'[^\w\s]', '', tmp)
 	return tmp
 
-# download only the video
-# @resParam => the resolution wanted
-# @nameOfFile => name to assign only to the video (tmp if both = video + audio)
-def downloadVideo(url,resParam,folderDestination="./tmp/", nameOfFile="video"):
-	print("Downloading the video")
-	try:
-		YouTube(url, use_oauth=True, allow_oauth_cache=True).streams.filter(res=str(resParam)+"p").first().download(output_path=folderDestination,filename=nameOfFile+'.mp4')
-	except Exception as e:
-		print("video or resolution aren't correct")
-	print("done!")
-
 # download only the audio
 def downloadAudio(url, folderDestination="./tmp/", nameOfFile="audio"):
 	print("Downloading the audio")
@@ -56,24 +44,7 @@ def getResolutions(url):
 	return sorted(availableRes)
 
 ##################################################
-#file handling
 
-# merge video and audio downloaded
-def mergeVideoAudio(url):
-	print("Merging video and audio")
-	audio = mp.AudioFileClip("./tmp/audio.mp4")
-	video1 = mp.VideoFileClip("./tmp/video.mp4")
-	final = video1.set_audio(audio)
-    
-    # Create output directory if it doesn't exist
-	if not os.path.exists("output"):
-		os.makedirs("output")  # Correct indentation (same as the if statement)
-        
-	final.write_videofile("output/"+getTitle(url)+".mp4",codec='libx264' ,audio_codec='libvorbis')
-
-def flushTmp():
-	os.remove("./tmp/audio.mp4")
-	os.remove("./tmp/video.mp4")
 ##################################################
 
 def addVideoToQueue(queueVideo):
@@ -96,15 +67,7 @@ def processQueue(queueVideo):
 			#just the audio
 			downloadAudio(i,"./output/",getTitle(i))
 
-		elif(queueVideo.get(i).get("mode")=="V"):
-			#just the video
-			downloadVideo(i,queueVideo.get(i).get("res"),"./output/",getTitle(i))
-		else:
-			#both video and audio
-			downloadVideo(i,queueVideo.get(i).get("res"))
-			downloadAudio(i)
-			mergeVideoAudio(i)
-			flushTmp()
+		
 
 def showQueue(queueVideo):
 	for i in queueVideo:
