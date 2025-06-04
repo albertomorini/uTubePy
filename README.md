@@ -6,7 +6,13 @@ Unlike the others YouTube downloaders, uTubePy allows you to download a video wi
 ## Usage:
 YouTube (and other web videos provider) split audio and video, then we have to download video and audio in a separate way, next we can merge these two temp files (video.mp4,audio.mp4) into a single one.
 
-**Install the dependencies with pip3**
+## Installation
+
+**Install the dependencies with pip**
+
+```cmd
+pip install -r requirements.txt
+```
 
 ## GUI version
 

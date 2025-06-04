@@ -1,0 +1,5 @@
+pytubefix
+yt-dlp
+PySimpleGUI
+moviepy
+darkdetect
