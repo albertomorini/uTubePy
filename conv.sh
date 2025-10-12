@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ~/.bashrc
 shopt -s expand_aliases
+source ~/.bashrc
 
 for i in ./output/*;
 do

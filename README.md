@@ -53,3 +53,6 @@ Using pytube, we earn all the library problems... like
 
 - **Getting throttling function problem**
   - Solved via: https://github.com/pytube/pytube/issues/1954#issuecomment-2218287594
+
+**pytubefix.exceptions.RegexMatchError: get_initial_function_name: could not find match for multiple in**
+`pip install --upgrade --force-reinstall --no-cache-dir git+https://github.com/felipeucelli/pytubefix.git@sig-nsig`
