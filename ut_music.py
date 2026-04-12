@@ -21,19 +21,32 @@ ssl._create_default_https_context = ssl._create_unverified_context
 # returns the title of the video w/out illegal char for OS
 # @url -> the youtube video url
 def getTitle(url):
-	tmp = YouTube(url, use_oauth=True, allow_oauth_cache=True).title
+	# # # tmp = YouTube(url, use_oauth=True, allow_oauth_cache=True).title
+	tmp = YouTube(url).title
 	#remove character not allowed on file system
 	tmp = re.sub(r'[^\w\s]', '', tmp)
 	return tmp
 
 # download only the audio
 def downloadAudio(url, folderDestination="./tmp/", nameOfFile="audio"):
-	print("Downloading the audio")
-	try:
-		YouTube(url, use_oauth=True, allow_oauth_cache=True).streams.filter(only_audio=True).first().download(output_path=folderDestination,filename=nameOfFile+".mp4")
-	except Exception as e:
-		print("url doesn't exists or there isn't audio in the video/video quality")
-	print("done!")
+    print("Downloading the audio")
+    try:
+        yt = YouTube(url)
+        stream = yt.streams.filter(only_audio=True).first()
+
+        if stream is None:
+            print("No audio stream found")
+            return
+
+        stream.download(
+            output_path=folderDestination,
+            filename=nameOfFile + ".mp4"
+        )
+
+    except Exception as e:
+        print("Error:", e)
+
+    print("done!")
 
 # reutrns a list of resolutions available of the video
 def getResolutions(url):
@@ -50,7 +63,7 @@ def getResolutions(url):
 def addVideoToQueue(queueVideo):
 	url = input("\nInsert the video's url: ")
 	#print("pick a resolution of" + str(getResolutions(url)))
-	resolution = 1080 #input("Insert the resolution as a number (720/1080): ")
+	resolution = 720 #1080 #input("Insert the resolution as a number (720/1080): ")
 	mode = "A" #input("\n-----------\n\tA for only audio\n\tV for only video\n\tB for both\n->")
 
 	queueVideo[url]={
