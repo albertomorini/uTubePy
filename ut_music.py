@@ -1,19 +1,9 @@
-# from pytubefix import YouTube
 # pip install yt-dlp
 import os
 import re
+from pathlib import Path
 
-import ssl
-ssl._create_default_https_context = ssl._create_stdlib_context
-
-from pytubefix import YouTube
-from pytubefix import request
-from pytubefix import extract
-from pytubefix.innertube import _default_clients
-from pytubefix.exceptions import RegexMatchError
-
-ssl._create_default_https_context = ssl._create_unverified_context
-
+import yt_dlp
 
 ########################################
 #YouTube interface
@@ -21,32 +11,53 @@ ssl._create_default_https_context = ssl._create_unverified_context
 # returns the title of the video w/out illegal char for OS
 # @url -> the youtube video url
 def getTitle(url):
-	# # # tmp = YouTube(url, use_oauth=True, allow_oauth_cache=True).title
-	tmp = YouTube(url).title
-	#remove character not allowed on file system
-	tmp = re.sub(r'[^\w\s]', '', tmp)
-	return tmp
+    print("Getting title...")
+    options = {
+        "noplaylist": True,
+        "quiet": False,
+        "no_warnings": False,
+    }
+    with yt_dlp.YoutubeDL(options) as ydl:
+        info = ydl.extract_info(url, download=False)
+
+    title = info["title"]
+    title = re.sub(r'[^\w\s.-]', '', title)
+    return title.strip()
+
+
 
 # download only the audio
-def downloadAudio(url, folderDestination="./tmp/", nameOfFile="audio"):
-    print("Downloading the audio")
+def downloadAudio(url, folderDestination="./output/"):
+    print("Downloading audio...")
+
     try:
-        yt = YouTube(url)
-        stream = yt.streams.filter(only_audio=True).first()
+        Path(folderDestination).mkdir(parents=True, exist_ok=True)
 
-        if stream is None:
-            print("No audio stream found")
-            return
+        options = {
+            "format": "bestaudio/best",
+            "outtmpl": str(
+                Path(folderDestination) / "%(title)s.%(ext)s"
+            ),
+            "postprocessors": [
+                {
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "m4a",
+                }
+            ],
+            "noplaylist": True,
+        }
 
-        stream.download(
-            output_path=folderDestination,
-            filename=nameOfFile + ".mp4"
-        )
+        with yt_dlp.YoutubeDL(options) as ydl:
+            ydl.download([url])
+
+        print("Downloaded!")
+        return True
 
     except Exception as e:
-        print("Error:", e)
+        print(f"Error: {e}")
+        return False
 
-    print("done!")
+
 
 # reutrns a list of resolutions available of the video
 def getResolutions(url):
@@ -73,12 +84,12 @@ def addVideoToQueue(queueVideo):
 	return queueVideo
 
 def processQueue(queueVideo):
-	for i in queueVideo:
-		print("Processing: "+getTitle(i))
+    for url, options in queueVideo.items():
+        title = getTitle(url)
+        print(f"\nProcessing: {title}")
+        if options["mode"] == "A":
+            downloadAudio(url,"./output/")
 
-		if(queueVideo.get(i).get("mode")=="A"):
-			#just the audio
-			downloadAudio(i,"./output/",getTitle(i))
 
 		
 
